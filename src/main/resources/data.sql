@@ -18,3 +18,11 @@ values (1, 'Dell Latitude 5420', 'laptop', 'electronics', 55000.00,
         'Product Dimensions=30 x 20 x 2 cm; 350 Grams,Manufacturer=Sunstar Appparels Private Limited,Item Weight =350gm'),
        (6, 'Denver black jeans', 'jeans', 'cloths', 1500.00,
         'Package Dimensions=33.7 x 27 x 6.7 cm; 510 Grams,Department=men,Item Weight =510gm');
+
+insert into SELLER_PRODUCTS(seller_id, product_id)
+values (1, 3),
+       (1, 5),
+       (2, 1),
+       (2, 4),
+       (3, 2),
+       (3, 6);
