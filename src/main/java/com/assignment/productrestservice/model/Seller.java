@@ -8,24 +8,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
-@Entity
-@Table(name = "PRODUCT")
+@Table(name = "SELLER")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@Entity
+public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    private String type;
-    private String category;
-    private double price;
-
-    @ManyToMany(mappedBy = "products")
-    private Set<Seller> sellers;
+    @ManyToMany
+    @JoinTable(
+            name = "SELLER_PRODUCTS",
+            joinColumns = @JoinColumn(name = "seller_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products;
 }
