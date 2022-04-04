@@ -20,7 +20,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> addProducts(List<Product> productList){
+    public List<Product> addProducts(List<Product> productList) {
         return productRepository.saveAll(productList);
     }
 
@@ -29,10 +29,26 @@ public class ProductService {
     }
 
     public Product findProductByProductIdAndSeller(long productId, long sellerId) {
-        return productRepository.findByIdAndSellerId(productId,sellerId);
+        return productRepository.findByIdAndSellerId(productId, sellerId);
     }
 
     public void deleteProduct(Product product) {
         productRepository.delete(product);
+    }
+
+    public List<Product> findByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    public List<Product> findByType(String type) {
+        return productRepository.findByType(type);
+    }
+
+    public List<Product> findByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
+
+    public List<Product> findByPriceBetween(double min, double max) {
+        return productRepository.findByPriceBetween(min, max);
     }
 }

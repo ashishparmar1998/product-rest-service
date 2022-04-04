@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -57,12 +58,33 @@ public class ProductController {
     }
 
     @DeleteMapping("/product/{productId}/{sellerId}")
-    public void deleteProduct(@PathVariable("productId") long productId, @PathVariable("sellerId") long sellerId){
+    public void deleteProduct(@PathVariable("productId") long productId, @PathVariable("sellerId") long sellerId) {
         Product product = productService.findProductByProductIdAndSeller(productId, sellerId);
-        if(product==null){
+        if (product == null) {
             throw new ResourceNotFoundException("product not found");
-        }else{
+        } else {
             productService.deleteProduct(product);
         }
+    }
+
+    @GetMapping("/products/{searchCriteria}/{param}")
+    public List<Product> getProductByName(@PathVariable("searchCriteria") String searchCriteria, @PathVariable("param") String param) {
+        List<Product> productList = new ArrayList<>();
+        if (searchCriteria.equalsIgnoreCase("name")) {
+            productList = productService.findByName(param);
+        }
+        if (searchCriteria.equalsIgnoreCase("category")) {
+            productList = productService.findByCategory(param);
+        }
+        if (searchCriteria.equalsIgnoreCase("type")) {
+            productList = productService.findByType(param);
+        }
+        return productList;
+    }
+
+
+    @GetMapping("/products/price/{min}/{max}")
+    public List<Product> findByPrice(@PathVariable("min") double min, @PathVariable("max") double max) {
+        return productService.findByPriceBetween(min, max);
     }
 }
