@@ -23,4 +23,8 @@ public class ProductService {
     public List<Product> addProducts(List<Product> productList){
         return productRepository.saveAll(productList);
     }
+
+    public List<Product> getSellerProduct(long sellerId) {
+        return productRepository.findBySellerId(sellerId);
+    }
 }
