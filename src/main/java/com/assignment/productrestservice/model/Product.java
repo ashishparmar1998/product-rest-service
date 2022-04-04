@@ -1,10 +1,12 @@
 package com.assignment.productrestservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +22,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +38,6 @@ public class Product {
     @Column(name = "ADDON")
     private String addOn;
 
-    @ManyToMany(mappedBy = "products")
-    @JsonBackReference
-    private Set<Seller> sellers;
+    @Column(name="SELLER_ID")
+    private long sellerId;
 }
