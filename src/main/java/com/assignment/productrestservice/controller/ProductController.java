@@ -1,8 +1,10 @@
 package com.assignment.productrestservice.controller;
 
+import com.assignment.productrestservice.exception.ResourceNotFoundException;
 import com.assignment.productrestservice.model.Product;
 import com.assignment.productrestservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +54,15 @@ public class ProductController {
             }
         }));
         return productService.addProducts(existingSellerProducts);
+    }
+
+    @DeleteMapping("/product/{productId}/{sellerId}")
+    public void deleteProduct(@PathVariable("productId") long productId, @PathVariable("sellerId") long sellerId){
+        Product product = productService.findProductByProductIdAndSeller(productId, sellerId);
+        if(product==null){
+            throw new ResourceNotFoundException("product not found");
+        }else{
+            productService.deleteProduct(product);
+        }
     }
 }
